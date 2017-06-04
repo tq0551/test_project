@@ -1,22 +1,25 @@
-self.addEventListener('install', event => {
-  console.log('V1 installing…');
+// self.addEventListener('install', event => {
+//   console.log('V1 installing…');
+// });
 
-  // cache a cat SVG
-  // event.waitUntil(
-  //   caches.open('static-v1').then(cache => cache.add('/cat.svg'))
-  // );
-});
+// self.addEventListener('activate', event => {
+//   console.log('V1 now ready to handle fetches!');
+// });
 
-self.addEventListener('activate', event => {
-  console.log('V1 now ready to handle fetches!');
-});
+// self.addEventListener('fetch', event => {
+// });
 
-self.addEventListener('fetch', event => {
-  // const url = new URL(event.request.url);
+// ServiceWorkerService.js
+const SERVICE_WORKER_API = 'serviceWorker';
+const SERVICE_WORKER_FILE_PATH = 'service-worker.js';
 
-  // serve the horse SVG from the cache if the request is
-  // same-origin and the path is '/dog.svg'
-  // if (url.origin == location.origin && url.pathname == '/dog.svg') {
-  //   event.respondWith(caches.match('/cat.svg'));
-  // }
-});
+const isSupportServiceWorker = () => SERVICE_WORKER_API in navigator;
+
+if (isSupportServiceWorker()) {
+    navigator
+        .serviceWorker
+        .register(SERVICE_WORKER_FILE_PATH)
+        .then(() => console.log('Load service worker Success.'))
+        .catch(() => console.error('Load service worker fail'));
+} else {
+    c
