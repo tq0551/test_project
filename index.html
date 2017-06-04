@@ -1,7 +1,16 @@
-<!DOCTYPE html>
-<html>
-<body>
-<h1>Hello World_test123</h1>
-<p>I'm hosted with GitHub Pages.</p>
-</body>
-</html>
+<h3>Background</h3>
+<p>
+  This sample demonstrates basic service worker registration. During the installation step, a
+  custom "Sorry, you're offline." page is cached. The service worker handles all fetch requests
+  for HTML pages (ignoring other requests), and if fetching an HTML page fails due to a network
+  error, it will instead return the cached "offline" page.
+</p>
+
+<p>
+  Try disconnecting from your network, and then reload this page.
+</p>
+
+{% include js_snippet.html filename='ServiceWorkerService.js' title="This Page's JavaScript" %}
+{% include js_snippet.html filename='service-worker.js' displayonly=true title="Service Worker's JavaScript" %}
+Contact GitHub API Training Shop Blog About
+© 2017 GitHub, Inc. Terms Privacy Security Status Help
