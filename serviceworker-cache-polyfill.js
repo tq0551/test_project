@@ -1,13 +1,39 @@
-// Via https://github.com/coonsta/cache-polyfill/blob/master/dist/serviceworker-cache-polyfill.js
-// Adds in some functionality missing in Chrome 40.
+/**
+ * Copyright 2015 Google Inc. All rights reserved.
+ *
+ * Licensed under the Apache License, Version 2.0 (the "License");
+ * you may not use this file except in compliance with the License.
+ * You may obtain a copy of the License at
+ *
+ *     http://www.apache.org/licenses/LICENSE-2.0
+ *
+ * Unless required by applicable law or agreed to in writing, software
+ * distributed under the License is distributed on an "AS IS" BASIS,
+ * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+ * See the License for the specific language governing permissions and
+ * limitations under the License.
+ *
+ */
 
-if (!Cache.prototype.add) {
-  Cache.prototype.add = function add(request) {
-    return this.addAll([request]);
-  };
-}
+(function() {
+  var nativeAddAll = Cache.prototype.addAll;
+  var userAgent = navigator.userAgent.match(/(Firefox|Chrome)\/(\d+\.)/);
 
-if (!Cache.prototype.addAll) {
+  // Has nice behavior of `var` which everyone hates
+  if (userAgent) {
+    var agent = userAgent[1];
+    var version = parseInt(userAgent[2]);
+  }
+
+  if (
+    nativeAddAll && (!userAgent ||
+      (agent === 'Firefox' && version >= 46) ||
+      (agent === 'Chrome'  && version >= 50)
+    )
+  ) {
+    return;
+  }
+
   Cache.prototype.addAll = function addAll(requests) {
     var cache = this;
 
@@ -17,11 +43,12 @@ if (!Cache.prototype.addAll) {
       this.code = 19;
       this.message = message;
     }
+
     NetworkError.prototype = Object.create(Error.prototype);
 
     return Promise.resolve().then(function() {
       if (arguments.length < 1) throw new TypeError();
-      
+
       // Simulate sequence<(Request or USVString)> binding:
       var sequence = [];
 
@@ -50,6 +77,14 @@ if (!Cache.prototype.addAll) {
         })
       );
     }).then(function(responses) {
+      // If some of the responses has not OK-eish status,
+      // then whole operation should reject
+      if (responses.some(function(response) {
+        return !response.ok;
+      })) {
+        throw new NetworkError('Incorrect response status');
+      }
+
       // TODO: check that requests don't overwrite one another
       // (don't think this is possible to polyfill due to opaque responses)
       return Promise.all(
@@ -61,26 +96,8 @@ if (!Cache.prototype.addAll) {
       return undefined;
     });
   };
-}
 
-if (!CacheStorage.prototype.match) {
-  // This is probably vulnerable to race conditions (removing caches etc)
-  CacheStorage.prototype.match = function match(request, opts) {
-    var caches = this;
-
-    return this.keys().then(function(cacheNames) {
-      var match;
-
-      return cacheNames.reduce(function(chain, cacheName) {
-        return chain.then(function() {
-          return match || caches.open(cacheName).then(function(cache) {
-            return cache.match(request, opts);
-          }).then(function(response) {
-            match = response;
-            return match;
-          });
-        });
-      }, Promise.resolve());
-    });
+  Cache.prototype.add = function add(request) {
+    return this.addAll([request]);
   };
-}
+}());

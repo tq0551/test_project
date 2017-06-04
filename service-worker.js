@@ -21,6 +21,8 @@ let CURRENT_CACHES = {
 };
 const OFFLINE_URL = 'offline.html';
 
+importScripts('serviceworker-cache-polyfill.js');
+
 function createCacheBustedRequest(url) {
   let request = new Request(url, {cache: 'reload'});
   // See https://fetch.spec.whatwg.org/#concept-request-mode
