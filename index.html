@@ -1,14 +1,13 @@
-<h3>Background</h3>
-<p>
-  This sample demonstrates basic service worker registration. During the installation step, a
-  custom "Sorry, you're offline." page is cached. The service worker handles all fetch requests
-  for HTML pages (ignoring other requests), and if fetching an HTML page fails due to a network
-  error, it will instead return the cached "offline" page.
-</p>
+<!DOCTYPE html>
+An image will appear here in 3 seconds:
+<script>
+  navigator.serviceWorker.register('/sw.js')
+    .then(reg => console.log('SW registered!', reg))
+    .catch(err => console.log('Boo!', err));
 
-<p>
-  Try disconnecting from your network, and then reload this page.
-</p>
-
-{% include js_snippet.html filename='index.js' title="This Page's JavaScript" %}
-{% include js_snippet.html filename='service-worker.js' displayonly=true title="Service Worker's JavaScript" %}
+  setTimeout(() => {
+    const img = new Image();
+    img.src = '/dog.svg';
+    document.body.appendChild(img);
+  }, 3000);
+</script>  
