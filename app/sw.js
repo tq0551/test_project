@@ -37,8 +37,8 @@ self.addEventListener('push', function(event) {
 
   const title = 'Books Test';
   const options = {
-    body: '博客來推播測試',
-    icon: 'images/books.png'
+    body: 'test_20170605',
+    icon: './images/books.png'
   };
   const notificationPromise = self.registration.showNotification(title, options);
   event.waitUntil(notificationPromise);
