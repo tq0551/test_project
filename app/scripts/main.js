@@ -46,7 +46,7 @@ function urlB64ToUint8Array(base64String) {
 if ('serviceWorker' in navigator && 'PushManager' in window) {
   console.log('Service Worker and Push is supported');
 
-  navigator.serviceWorker.register('../sw.js')
+  navigator.serviceWorker.register('../app/sw.js')
   .then(function(swReg) {
     console.log('Service Worker is registered', swReg);
 
@@ -107,7 +107,7 @@ function subscribeUser() {
   });
 }
 
-//§ó§ï«ö¶sª¬ºA
+//æ›´æ”¹æŒ‰éˆ•ç‹€æ…‹
 function updateBtn() {
 	if (Notification.permission === 'denied') {
     pushButton.textContent = 'Push Messaging Blocked.';
@@ -125,7 +125,7 @@ function updateBtn() {
   pushButton.disabled = false;
 }
 
-//§ó·s¦øªA¾¹ªº­q¾\ª¬ºA
+//æ›´æ–°ä¼ºæœå™¨çš„è¨‚é–±ç‹€æ…‹
 function updateSubscriptionOnServer(subscription) {
   // TODO: Send subscription to application server
 
