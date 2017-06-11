@@ -37,7 +37,7 @@ self.addEventListener('push', function(event) {
 
   const title = 'Books Test';
   const options = {
-    body: 'test_20170605',
+    body: 'test',
     icon: './images/books.png'
   };
   const notificationPromise = self.registration.showNotification(title, options);
