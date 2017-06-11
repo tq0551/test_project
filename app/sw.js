@@ -39,24 +39,18 @@ self.addEventListener('push', function(event) {
   const options = {
 	actions: [
          {
-    	    action: 'coffee-action',
-            title: 'Coffee',
+    	    action: 'YES-action',
+            title: 'YES',
             icon: './images/Y.png'
          }, 
          {
-            action: 'doughnut-action',
-            title: 'Doughnut',
-            icon: '/images/N.png'
+            action: 'NO-action',
+            title: 'NO',
+            icon: './images/N.png'
           }]
   };
   const maxVisibleActions = Notification.maxActions;
-    if (maxVisibleActions < 2) {
-      options.body = 'This notification will only display' +
-        '${maxVisibleActions} actions.';
-    } else {
-      options.body = 'This notification can display up to ' +
-        '${maxVisibleActions} actions.';
-    }	
+      options.body = '推播測試';	
   const notificationPromise = self.registration.showNotification(title, options);
   event.waitUntil(notificationPromise);
 })
