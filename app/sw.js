@@ -49,8 +49,7 @@ self.addEventListener('push', function(event) {
             icon: './images/N.png'
           }]
   };
-  const maxVisibleActions = Notification.maxActions;
-      options.body = '推播測試';	
+  options.body = '推播測試';	
   const notificationPromise = self.registration.showNotification(title, options);
   event.waitUntil(notificationPromise);
 })
