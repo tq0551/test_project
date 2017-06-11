@@ -35,10 +35,9 @@ self.addEventListener('push', function(event) {
   console.log('[Service Worker] Push Received.');
   console.log(`[Service Worker] Push had this data: "${event.data.text()}"`);
 
-  const title = 'Books Test';
+  const title = 'Books Test_2';
   const options = {
-    body: 'test',
-    icon: './images/books.png'
+    image: './images/N000787923_t_30.jpg'
   };
   const notificationPromise = self.registration.showNotification(title, options);
   event.waitUntil(notificationPromise);
