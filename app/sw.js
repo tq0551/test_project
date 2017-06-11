@@ -35,10 +35,28 @@ self.addEventListener('push', function(event) {
   console.log('[Service Worker] Push Received.');
   console.log(`[Service Worker] Push had this data: "${event.data.text()}"`);
 
-  const title = 'Books Test_2';
+  const title = 'Books Test_3';
   const options = {
-    image: './images/N000787923_t_30.jpg'
+	actions: [
+         {
+    	    action: 'coffee-action',
+            title: 'Coffee',
+            icon: './images/Y.png'
+         }, 
+         {
+            action: 'doughnut-action',
+            title: 'Doughnut',
+            icon: '/images/N.png'
+          }]
   };
+  const maxVisibleActions = Notification.maxActions;
+    if (maxVisibleActions < 2) {
+      options.body = 'This notification will only display' +
+        '${maxVisibleActions} actions.';
+    } else {
+      options.body = 'This notification can display up to ' +
+        '${maxVisibleActions} actions.';
+    }	
   const notificationPromise = self.registration.showNotification(title, options);
   event.waitUntil(notificationPromise);
 })
