@@ -96,6 +96,7 @@ function subscribeUser() {
     console.log('User is subscribed.');
 
     updateSubscriptionOnServer(subscription);
+    console.log('Received PushSubscription: ', JSON.stringify(subscription));	  
 
     isSubscribed = true;
 
