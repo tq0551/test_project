@@ -36,19 +36,23 @@ self.addEventListener('push', function(event) {
   console.log(`[Service Worker] Push had this data: "${event.data.text()}"`);
 
   const title = 'Books Test_3';
+//   const options = {
+// 	actions: [
+//          {
+//     	    action: 'YES-action',
+//             title: 'YES',
+//             icon: './images/Y.png'
+//          }, 
+//          {
+//             action: 'NO-action',
+//             title: 'NO',
+//             icon: './images/N.png'
+//           }]
+//   };
+  const title = 'Books Test_2';
   const options = {
-	actions: [
-         {
-    	    action: 'YES-action',
-            title: 'YES',
-            icon: './images/Y.png'
-         }, 
-         {
-            action: 'NO-action',
-            title: 'NO',
-            icon: './images/N.png'
-          }]
-  };
+    image: './images/N000787923_t_30.jpg'
+  };	
   options.body = '推播測試';	
   const notificationPromise = self.registration.showNotification(title, options);
   event.waitUntil(notificationPromise);
