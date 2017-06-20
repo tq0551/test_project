@@ -1,4 +1,14 @@
 // Import and configure the Firebase SDK
+  // Initialize Firebase
+ var config = {
+   apiKey: "AIzaSyALpE5VQGXIseC_sPQBpvSvVonmfc_7rU4",
+   authDomain: "pushnotification-demo-27bad.firebaseapp.com",
+   databaseURL: "https://pushnotification-demo-27bad.firebaseio.com",
+   projectId: "pushnotification-demo-27bad",
+   storageBucket: "pushnotification-demo-27bad.appspot.com",
+   messagingSenderId: "773063719938"
+ };
+ firebase.initializeApp(config);
 // These scripts are made available when the app is served or deployed on Firebase Hosting
 // If you do not serve/host your project using Firebase Hosting see https://firebase.google.com/docs/web/setup
 importScripts('/__/firebase/3.9.0/firebase-app.js');
