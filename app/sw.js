@@ -35,7 +35,7 @@ self.addEventListener('push', function(event) {
   console.log('[Service Worker] Push Received.');
   console.log(`[Service Worker] Push had this data: "${event.data.text()}"`);
 
-  const title = 'Books Test_3';
+//   const title = 'Books Test_3';
 //   const options = {
 // 	actions: [
 //          {
